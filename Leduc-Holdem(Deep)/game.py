@@ -211,6 +211,7 @@ class Player(CursorPlayer):
         return one_hot
 
     def new_round(self):
+        self.network = self.gen_network()
         self.spent_this_round = 0
         self.round_memory = []
 
@@ -272,9 +273,10 @@ class Player(CursorPlayer):
         self.round_memory = []
         self.probability_memory = []
 
-        # Setup e-greedy and epoch counting
+        # Setup e-greedy and epoch counting - Create a network
         self.dynamic_e_greedy = self.e_greedy
         self.current_epoch = 1
+        self.network = self.gen_network()
 
     def epoch_update(self, decay_rate=.8):
         # Updates the greedy value
